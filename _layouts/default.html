@@ -1,15 +1,29 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="{{ page.lang | default: 'zh-Hant-TW' }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  {% if page.translation_key %}
+    {% assign translations = site.pages | where: "translation_key", page.translation_key %}
+    {% assign post_translations = site.posts | where: "translation_key", page.translation_key %}
+    {% assign translations = translations | concat: post_translations %}
+    {% for item in translations %}
+      {% if item.locale == 'zh-tw' %}<link rel="alternate" hreflang="zh-Hant-TW" href="{{ item.url | absolute_url }}">{% endif %}
+      {% if item.locale == 'ja' %}<link rel="alternate" hreflang="ja" href="{{ item.url | absolute_url }}">{% endif %}
+    {% endfor %}
+  {% endif %}
 </head>
 <body>
   <header class="site-header">
     <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav class="language-nav" aria-label="Language">
+      <a href="{{ '/zh-tw/' | relative_url }}"{% if page.locale == 'zh-tw' %} aria-current="page"{% endif %}>繁體中文</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ '/ja/' | relative_url }}"{% if page.locale == 'ja' %} aria-current="page"{% endif %}>日本語</a>
+    </nav>
   </header>
   <main class="content">
     {{ content }}
