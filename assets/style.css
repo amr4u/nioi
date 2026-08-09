@@ -107,7 +107,13 @@ a { color: var(--link); text-decoration-thickness: .08em; text-underline-offset:
 
 .post-content h2,
 .post-content h3 { margin-top: 2em; line-height: 1.4; }
-.post-content img { max-width: 100%; height: auto; }
+.post-content img,
+.post-content .mermaid svg { max-width: 100%; height: auto; }
+.post-content .mermaid {
+  overflow-x: auto;
+  margin: 2rem 0;
+  text-align: center;
+}
 .post-content blockquote {
   margin-inline: 0;
   padding-left: 1.2rem;
