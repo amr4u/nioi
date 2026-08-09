@@ -1,0 +1,27 @@
+---
+layout: default
+title: 文章
+locale: zh-tw
+lang: zh-Hant-TW
+translation_key: home
+permalink: /zh-tw/
+---
+<section class="intro">
+  <p class="eyebrow">台灣中文</p>
+  <h1>文章</h1>
+</section>
+
+<section class="post-list" aria-label="台灣中文文章列表">
+  {% assign posts = site.posts | where: "locale", "zh-tw" %}
+  {% if posts.size > 0 %}
+    {% for post in posts %}
+      <article class="post-item">
+        <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+      </article>
+    {% endfor %}
+  {% else %}
+    <p class="empty">還沒有文章。</p>
+  {% endif %}
+</section>
