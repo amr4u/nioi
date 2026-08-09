@@ -61,18 +61,36 @@ permalink: /ja/article-slug/
 
 Use the same publication date for both language versions unless the user intentionally wants separate publication dates.
 
+## Mermaid contract
+
+Mermaid diagrams are supported conditionally.
+
+- Keep diagram source in standard fenced Markdown blocks using ` ```mermaid `.
+- If an article contains any Mermaid block, add `mermaid: true` to that article's front matter.
+- Apply `mermaid: true` independently to each language version that contains Mermaid.
+- Do not add `mermaid: true` to articles without Mermaid diagrams.
+- Do not replace Mermaid source with generated SVG during routine publishing; keep the Markdown portable.
+
+Example:
+
+```yaml
+mermaid: true
+```
+
 ## Publishing workflow
 
 1. Confirm the article content to publish from the current conversation or supplied source.
 2. Produce or finalize the Taiwanese Chinese version.
 3. Produce the Japanese version with equivalent meaning and natural Japanese expression.
 4. Choose one stable `translation_key` for both versions.
-5. Create or update both `_posts/*.md` files.
-6. Do not modify unrelated site files during routine publishing.
-7. Commit changes to `main` unless the user explicitly requests another branch or review flow.
-8. Verify the GitHub Pages build completes successfully.
-9. Verify the expected public URLs for both language versions.
-10. Report the published Taiwanese Chinese and Japanese URLs, plus any build failure or limitation.
+5. Detect whether each version contains Mermaid and set `mermaid: true` where required.
+6. Create or update both `_posts/*.md` files.
+7. Do not modify unrelated site files during routine publishing.
+8. Commit changes to `main` unless the user explicitly requests another branch or review flow.
+9. Verify the GitHub Pages build completes successfully.
+10. Verify the expected public URLs for both language versions.
+11. For Mermaid articles, verify the published page renders diagrams rather than showing raw Mermaid code when verification is available.
+12. Report the published Taiwanese Chinese and Japanese URLs, plus any build or rendering failure or limitation.
 
 ## Update workflow
 
@@ -82,6 +100,7 @@ When editing an existing article:
 - Preserve existing permalinks unless there is a strong reason to change them.
 - Keep both versions semantically aligned when the edit changes meaning.
 - A language-specific correction may update only one version if meaning remains equivalent.
+- Add or remove `mermaid: true` if Mermaid usage changes.
 
 ## Completion criteria
 
@@ -90,6 +109,7 @@ Publishing is complete only when:
 - Both expected language files exist unless the user explicitly requested one language only.
 - `locale`, `lang`, `translation_key`, and `permalink` are correct.
 - The paired versions share the same `translation_key`.
+- `mermaid: true` is present exactly where Mermaid diagrams are used.
 - The site architecture was not changed unnecessarily.
 - GitHub Pages reports a successful build.
 - The final response includes both public URLs.
