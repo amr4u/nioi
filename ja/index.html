@@ -1,0 +1,27 @@
+---
+layout: default
+title: 記事
+locale: ja
+lang: ja
+translation_key: home
+permalink: /ja/
+---
+<section class="intro">
+  <p class="eyebrow">日本語</p>
+  <h1>記事</h1>
+</section>
+
+<section class="post-list" aria-label="日本語の記事一覧">
+  {% assign posts = site.posts | where: "locale", "ja" %}
+  {% if posts.size > 0 %}
+    {% for post in posts %}
+      <article class="post-item">
+        <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+      </article>
+    {% endfor %}
+  {% else %}
+    <p class="empty">まだ記事はありません。</p>
+  {% endif %}
+</section>
