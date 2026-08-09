@@ -1,0 +1,12 @@
+title: nioi
+description: Notes, essays, and ideas.
+lang: zh-TW
+timezone: Asia/Tokyo
+url: "https://amr4u.github.io"
+baseurl: "/nioi"
+
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+exclude:
+  - README.md
