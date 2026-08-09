@@ -1,21 +1,19 @@
 ---
 layout: default
+title: nioi
 ---
-<section class="intro">
+<section class="intro home-intro">
   <h1>nioi</h1>
   <p>Notes, essays, and ideas.</p>
 </section>
 
-<section class="post-list" aria-label="文章列表">
-  {% if site.posts.size > 0 %}
-    {% for post in site.posts %}
-      <article class="post-item">
-        <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
-        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        {% if post.description %}<p>{{ post.description }}</p>{% endif %}
-      </article>
-    {% endfor %}
-  {% else %}
-    <p class="empty">還沒有文章。</p>
-  {% endif %}
+<section class="language-choices" aria-label="Choose language">
+  <a class="language-card" href="{{ '/zh-tw/' | relative_url }}">
+    <strong>繁體中文</strong>
+    <span>台灣中文文章</span>
+  </a>
+  <a class="language-card" href="{{ '/ja/' | relative_url }}">
+    <strong>日本語</strong>
+    <span>日本語の記事</span>
+  </a>
 </section>
