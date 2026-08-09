@@ -6,11 +6,26 @@ layout: default
     <p class="post-date">{{ page.date | date: "%Y-%m-%d" }}</p>
     <h1>{{ page.title }}</h1>
     {% if page.description %}<p class="post-description">{{ page.description }}</p>{% endif %}
+    {% if page.translation_key %}
+      {% assign translations = site.posts | where: "translation_key", page.translation_key %}
+      {% if translations.size > 1 %}
+        <nav class="translation-switcher" aria-label="Translations">
+          {% for item in translations %}
+            {% if item.locale == 'zh-tw' %}<a href="{{ item.url | relative_url }}"{% if page.locale == 'zh-tw' %} aria-current="page"{% endif %}>繁體中文</a>{% endif %}
+            {% if item.locale == 'ja' %}<a href="{{ item.url | relative_url }}"{% if page.locale == 'ja' %} aria-current="page"{% endif %}>日本語</a>{% endif %}
+          {% endfor %}
+        </nav>
+      {% endif %}
+    {% endif %}
   </header>
   <div class="post-content">
     {{ content }}
   </div>
   <footer class="post-footer">
-    <a href="{{ '/' | relative_url }}">← 回到文章列表</a>
+    {% if page.locale == 'ja' %}
+      <a href="{{ '/ja/' | relative_url }}">← 記事一覧へ</a>
+    {% else %}
+      <a href="{{ '/zh-tw/' | relative_url }}">← 回到文章列表</a>
+    {% endif %}
   </footer>
 </article>
