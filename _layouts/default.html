@@ -28,5 +28,29 @@
   <main class="content">
     {{ content }}
   </main>
+  {% if page.mermaid %}
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    const blocks = document.querySelectorAll('.post-content pre > code.language-mermaid');
+
+    blocks.forEach((code) => {
+      const diagram = document.createElement('div');
+      diagram.className = 'mermaid';
+      diagram.textContent = code.textContent;
+      code.parentElement.replaceWith(diagram);
+    });
+
+    if (blocks.length > 0) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        theme: prefersDark ? 'dark' : 'default'
+      });
+      await mermaid.run({ querySelector: '.mermaid' });
+    }
+  </script>
+  {% endif %}
 </body>
 </html>
